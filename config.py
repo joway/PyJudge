@@ -1,1 +1,1 @@
-LOCAL_TMP_PATH = '../tmp/'
+LOCAL_TMP_PATH = './tmp/'
