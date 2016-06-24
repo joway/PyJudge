@@ -10,11 +10,11 @@ class DockerTestCase(TestCase):
         self.path = os.getcwd() + '/'
 
     def test_build_images(self):
-        self.client.build_images('./Dockerfile', 'judge')
+        self.client.build_images('./TestDockerfile', 'judge')
 
     def test_run_container(self):
         self.client.run_container('judge', binds=[self.path + ":/code"])
 
     def test_exec_container(self):
         self.client.exec_container('ubuntu:14.04',
-                                   'bash -c "echo hello from; echo the other side;"')
+                                   'cases -c "echo hello from; echo the other side;"')

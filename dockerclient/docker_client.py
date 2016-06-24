@@ -1,7 +1,6 @@
 from io import BytesIO
 
 from docker import Client
-from sidomo import Container
 
 
 class DockerClient(object):
@@ -21,6 +20,6 @@ class DockerClient(object):
                                                      binds=binds, mem_limit=mem_limit))
         self.client.start(container)
 
-    def exec_container(self, image, cmd):
-        with Container(image) as c:
-            return [x for x in c.run(cmd)]
+    def exec_container(self, container, cmd):
+        container_id = self.client.exec_create(container, cmd)['Id']
+        return self.client.exec_start(container_id)
