@@ -1,6 +1,7 @@
 from io import BytesIO
 
 from docker import Client
+from requests import ReadTimeout
 
 
 class DockerClient(object):
@@ -19,9 +20,12 @@ class DockerClient(object):
                                                  host_config=self.client.create_host_config(
                                                      binds=volume_binds, mem_limit=mem_limit), command=command)
         self.client.start(container)
-        print(container)
-        print(self.client.logs(container))
-        # self.client.remove_container(container)
+        try:
+            self.client.wait(container, timeout=3)
+        except ReadTimeout:
+            print('time out')
+        self.client.stop(container)
+        self.client.remove_container(container)
 
     def exec_container(self, container, cmd):
         container_id = self.client.exec_create(container, cmd)['Id']

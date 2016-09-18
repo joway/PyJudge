@@ -4,10 +4,15 @@
 
 ### User Input
 
-- bash : run.sh
-- File : (data.rar | http://xxx.com/data.rar) | (data.java | http://xxx.com/data.java)
+- script : run.sh | run.py
+- File : (code.jar | http://xxx.com/code.jar) | (data.java | http://xxx.com/data.java)
 
-## Server Output
+### Server Output
 
 - Output string
 - File : output.rar | http://xxx.com/output.rar
+
+
+## Usage
+
+1. ./build_image.sh
