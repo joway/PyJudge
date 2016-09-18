@@ -1,8 +1,8 @@
 import subprocess
 import uuid
 
-from config import LOCAL_TMP_PATH, CONTAINER_NAME, CODE_TMP_DIR
-from dockerclient.docker_client import DockerClient
+from config import LOCAL_TMP_PATH
+from utils.docker_client import DockerClient
 
 
 class Judge(object):
@@ -30,11 +30,6 @@ class Judge(object):
         child = subprocess.Popen(["python", filename], stdout=subprocess.PIPE)
         return child.communicate()
 
-    def judge_python_docker(self, segment):
-        filename = self.save_file('python', segment)
-        return self.docker.exec_container(CONTAINER_NAME,
-                                          'python ' + CODE_TMP_DIR + filename)
-
     def judge_c(self, segment):
         filename = self.save_file('c', segment)
         child = subprocess.Popen(((self.build_cmd.get('c')) % (filename, filename[:-2])).split(" "),
@@ -43,4 +38,3 @@ class Judge(object):
         child_exe = subprocess.Popen([filename[:-2]],
                                      stdout=subprocess.PIPE)
         return child_exe.communicate()
-

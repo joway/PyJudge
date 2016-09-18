@@ -1,9 +1,35 @@
 FROM ubuntu:14.04
-ENV DEBIAN_FRONTEND noninteractive
-RUN rm /etc/apt/sources.list
-COPY sources.list /etc/apt/
-RUN apt-get update
-RUN apt-get -y install software-properties-common python-software-properties python python-dev gcc g++ git libtool python-pip libseccomp-dev openjdk-7-jdk
+
+ENV IMAGE_NAME "UBUNTU-BASE"
+ENV VERSION 0.0.1
+
+RUN apt-get -qq update
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python3-software-properties software-properties-common
+
+# tools
+RUN apt-get -y install \
+    build-essential \
+    byobu curl git htop man unzip vim wget
+
+# language support
+RUN apt-get -y install \
+#   python
+    python-setuptools \
+    python-dev \
+    python-pip
+#   c && cpp
+    gcc \
+    g++
+#   java
+    openjdk-7-jdk
+
+#   clean
+RUN rm -rf /var/lib/apt/lists/*
+
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+
+RUN mkdir /code \
+ && mkdir /input
+
+VOLUME /code /input

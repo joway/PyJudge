@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase
 
-from dockerclient.docker_client import DockerClient
+from utils.docker_client import DockerClient
 
 
 class DockerTestCase(TestCase):
