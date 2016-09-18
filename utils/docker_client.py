@@ -14,11 +14,14 @@ class DockerClient(object):
             fileobj=dkfile, rm=True, tag=tag)]
         return response
 
-    def run_container(self, image, mem_limit=None, binds: list = None, command=None):
+    def run_container(self, image, mem_limit=None, volume_binds: list = None, command=None):
         container = self.client.create_container(image=image,
                                                  host_config=self.client.create_host_config(
-                                                     binds=binds, mem_limit=mem_limit), command=command)
+                                                     binds=volume_binds, mem_limit=mem_limit), command=command)
         self.client.start(container)
+        print(container)
+        print(self.client.logs(container))
+        # self.client.remove_container(container)
 
     def exec_container(self, container, cmd):
         container_id = self.client.exec_create(container, cmd)['Id']

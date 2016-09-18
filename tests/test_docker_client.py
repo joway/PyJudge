@@ -13,7 +13,7 @@ class DockerTestCase(TestCase):
         self.client.build_images('./TestDockerfile', 'judge')
 
     def test_run_container(self):
-        self.client.run_container('judge', binds=[self.path + ":/code"])
+        self.client.run_container('judge', volume_binds=[self.path + ":/code"])
 
     def test_exec_container(self):
         self.client.exec_container('ubuntu:14.04',

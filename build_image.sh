@@ -1,0 +1,1 @@
+docker build . --tag=joway/judge -f dockerfiles/Dockerfile

@@ -17,10 +17,10 @@ RUN apt-get -y install \
 #   python
     python-setuptools \
     python-dev \
-    python-pip
+    python-pip \
 #   c && cpp
     gcc \
-    g++
+    g++ \
 #   java
     openjdk-7-jdk
 
@@ -29,7 +29,13 @@ RUN rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
-RUN mkdir /code \
- && mkdir /input
+RUN mkdir /output \
+ && mkdir /input \
+ && mkdir /scripts
 
-VOLUME /code /input
+ADD ./scripts/*.* /scripts/
+RUN chmod +x /scripts/*.sh
+
+WORKDIR /scripts
+
+VOLUME /input /output

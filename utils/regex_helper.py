@@ -1,7 +1,7 @@
 import re
 
 
-def is_file_or_url(string):
+def is_url_format(string):
     regex = re.compile(
         r'^(?:http|ftp)s?://'  # http:// or https://
         r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
